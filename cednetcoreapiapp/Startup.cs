@@ -10,6 +10,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using DataLibrary.Data;
+using DataLibrary.Db;
 
 namespace cednetcoreapiapp
 {
@@ -26,6 +28,14 @@ namespace cednetcoreapiapp
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            services.AddSingleton(new ConnectionStringData
+            {
+                SqlConnectionName = "Default"
+            });
+            services.AddSingleton<IDataAccess, SqlDb>();
+            services.AddSingleton<IFoodData, FoodData>();
+            services.AddSingleton<IOrderData,OrderData>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
